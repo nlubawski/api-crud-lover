@@ -1,5 +1,7 @@
 package com.crud.apicrudlover.Model;
 
+import java.util.Date;
+
 import com.crud.apicrudlover.Dto.CarDTO;
 
 import jakarta.persistence.Column;
@@ -27,18 +29,18 @@ public class Car {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @Column(length = 200, nullable = false)
+  @Column(length = 40, nullable = false)
   private String modelo;
 
-  @Column(length = 200, nullable = false)
+  @Column(length = 50, nullable = false)
   private String fabricante;
 
-  @Column(length = 200, nullable = false)
-  private String dataFabricacao;
+  @Column(length = 10, nullable = false)
+  private Date dataFabricacao;
 
-  @Column(length = 200, nullable = false)
+  @Column(length = 10, nullable = false)
   private Double valor;
 
-  @Column(length = 200, nullable = false)
+  @Column(length = 4, nullable = false)
   private int anoModelo;
 }
