@@ -2,11 +2,13 @@ package com.crud.apicrudlover.Controller;
 
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +25,7 @@ public class CarController {
   private CarRepository repository;
 
   @GetMapping
-  public List<Car> listAll(){
+  public List<Car> listAll() {
     return repository.findAll();
   }
 
@@ -32,8 +34,21 @@ public class CarController {
     repository.save(new Car(req));
   }
 
+  @PutMapping("/{id}")
+  public void updateCar(@PathVariable Long id, @RequestBody CarDTO req){
+    repository.findById(id).map(car -> {
+      car.setModelo(req.modelo());
+      car.setFabricante(req.fabricante());
+      car.setDataFabricacao(req.dataFabricacao());
+      car.setValor(req.valor());
+      car.setAnoModelo(req.anoModelo());
+
+      return repository.save(car);
+    });
+  }
+
   @DeleteMapping("/{id}")
-  public void deleteCar(@PathVariable Long id){
+  public void deleteCar(@PathVariable Long id) {
     repository.deleteById(id);
   }
 }
